@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S5A0504 (Scarfold)", "S5A05
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S6A0602", "S6A0602\S6A0602.csproj", "{38E3CC09-74A3-4A1A-BBCC-90E881417A5D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S6A0702", "S7A0702\S6A0702.csproj", "{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{38E3CC09-74A3-4A1A-BBCC-90E881417A5D}.Release|x64.Build.0 = Release|Any CPU
 		{38E3CC09-74A3-4A1A-BBCC-90E881417A5D}.Release|x86.ActiveCfg = Release|Any CPU
 		{38E3CC09-74A3-4A1A-BBCC-90E881417A5D}.Release|x86.Build.0 = Release|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Debug|x64.Build.0 = Debug|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Debug|x86.Build.0 = Debug|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Release|x64.ActiveCfg = Release|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Release|x64.Build.0 = Release|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Release|x86.ActiveCfg = Release|Any CPU
+		{8CA8A143-DC7E-4440-B85B-781AF4FA97A2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
