@@ -1,0 +1,14 @@
+{
+  "upgrade": {
+    "name": "//TODO: Upgrade description here",
+    "command": [
+      "//TODO: Upgrade script here"
+    ]
+  },
+  "downgrade": {
+    "name": "//TODO: Downgrade description here",
+    "command": [
+      "//TODO: Downgrade script here"
+    ]
+  }
+}

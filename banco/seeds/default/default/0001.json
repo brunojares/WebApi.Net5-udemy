@@ -1,0 +1,9 @@
+﻿{
+  "name": "//TODO: name of task",
+  "script": [
+    "//TODO: script task"
+  ],
+  "parameters": {
+    "prior:id": "//TODO: previous id"
+  }
+}
