@@ -64,6 +64,21 @@ namespace S5A0504.Controllers
                 });
             }
         }
+        [HttpGet("mult/{firstNumber}/{secoundNumber}")]
+        public IActionResult Mult(string firstNumber, string secoundNumber)
+        {
+            Validate(firstNumber, secoundNumber, out List<string> errors, out decimal first, out decimal secound);
+            if (errors.Count == 0)
+                return Ok(first * secound);
+            else
+            {
+                return BadRequest(new
+                {
+                    title = "Invalid Input",
+                    errors
+                });
+            }
+        }
         [HttpGet("ave/{firstNumber}/{secoundNumber}")]
         public IActionResult Average(string firstNumber, string secoundNumber)
         {
