@@ -30,7 +30,7 @@ namespace S5A0504
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "S5A0504", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "S6A0602", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace S5A0504
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "S5A0504 v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "S6A0602 v1"));
             }
 
             //app.UseHttpsRedirection();

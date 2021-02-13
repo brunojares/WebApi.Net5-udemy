@@ -11,10 +11,6 @@ namespace S5A0504.Controllers
     [Route("[controller]")]
     public class CalculatorController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
         private readonly ILogger<CalculatorController> _logger;
 
@@ -24,13 +20,9 @@ namespace S5A0504.Controllers
         }
 
         [HttpGet("sum/{firstNumber}/{secoundNumber}")]
-        public IActionResult Get(string firstNumber, string secoundNumber)
+        public IActionResult Sum(string firstNumber, string secoundNumber)
         {
-            var errors = new List<string>();
-            if (!decimal.TryParse(firstNumber, out decimal first))
-                errors.Add("First number must be number");
-            if (!decimal.TryParse(secoundNumber, out decimal secound))
-                errors.Add("Secound number must be number");
+            Validate(firstNumber, secoundNumber, out List<string> errors, out decimal first, out decimal secound);
             if (errors.Count == 0)
                 return Ok(first + secound);
             else
@@ -41,6 +33,79 @@ namespace S5A0504.Controllers
                     errors
                 });
             }
+        }
+        [HttpGet("sub/{firstNumber}/{secoundNumber}")]
+        public IActionResult Sub(string firstNumber, string secoundNumber)
+        {
+            Validate(firstNumber, secoundNumber, out List<string> errors, out decimal first, out decimal secound);
+            if (errors.Count == 0)
+                return Ok(first - secound);
+            else
+            {
+                return BadRequest(new
+                {
+                    title = "Invalid Input",
+                    errors
+                });
+            }
+        }
+        [HttpGet("div/{firstNumber}/{secoundNumber}")]
+        public IActionResult Div(string firstNumber, string secoundNumber)
+        {
+            Validate(firstNumber, secoundNumber, out List<string> errors, out decimal first, out decimal secound);
+            if (errors.Count == 0)
+                return Ok(first / secound);
+            else
+            {
+                return BadRequest(new
+                {
+                    title = "Invalid Input",
+                    errors
+                });
+            }
+        }
+        [HttpGet("ave/{firstNumber}/{secoundNumber}")]
+        public IActionResult Average(string firstNumber, string secoundNumber)
+        {
+            Validate(firstNumber, secoundNumber, out List<string> errors, out decimal first, out decimal secound);
+            if (errors.Count == 0)
+                return Ok((first + secound) / 2);
+            else
+            {
+                return BadRequest(new
+                {
+                    title = "Invalid Input",
+                    errors
+                });
+            }
+        }
+
+        [HttpGet("sqrt/{Number}")]
+        public IActionResult Sqrt(string Number)
+        {
+            if (!double.TryParse(Number, out double value))
+            {
+                return BadRequest(new
+                {
+                    title = "Invalid Input",
+                    errors = new string[]
+                    {
+                        $"Inválid Number '{Number}'"
+                    }
+                });
+            }
+            else
+                return Ok(Math.Sqrt(value));
+        }
+
+        [NonAction]
+        private void Validate(string firstNumber, string secoundNumber, out List<string> errors, out decimal first, out decimal secound)
+        {
+            errors = new List<string>();
+            if (!decimal.TryParse(firstNumber, out first))
+                errors.Add($"First number '{firstNumber}' must be number");
+            if (!decimal.TryParse(secoundNumber, out secound))
+                errors.Add($"Secound number '{secoundNumber}' must be number");
         }
     }
 }
