@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using S6A0702.Moldels.Person;
+using S6A0702.Moldel.Entities;
 using S6A0702.Services;
+using System.Linq;
 
 namespace S5A0504.Controllers
 {
@@ -38,13 +35,13 @@ namespace S5A0504.Controllers
             return _result != null ? Ok(_result) : NotFound();
         }
         [HttpPost]
-        public IActionResult Post([FromBody] PersonModel model)
+        public IActionResult Post([FromBody] Person model)
         {
             _personService.Create(ref model);
             return Accepted(model);
         }
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] PersonModel model)
+        public IActionResult Put(int id, [FromBody] Person model)
         {
             model.Id = id;
             _personService.Update(ref model);

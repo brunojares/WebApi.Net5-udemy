@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace S6A0702.Moldels.Person
+namespace S6A0702.Moldel.Entities
 {
-    public class PersonModel
+    public class Person
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -13,7 +13,7 @@ namespace S6A0702.Moldels.Person
         public string Address { get; set; }
         public string Gender { get; set; }
 
-        public void CopyFrom(PersonModel model, bool withId = false)
+        public void CopyFrom(Person model, bool withId = false)
         {
             if (model != null)
             {

@@ -1,14 +1,14 @@
-﻿using S6A0702.Moldels.Person;
+﻿using S6A0702.Moldel.Entities;
 using System.Collections.Generic;
 
 namespace S6A0702.Services
 {
     public interface IPersonService
     {
-        void Create(ref PersonModel model);
-        void Update(ref PersonModel model);
+        void Create(ref Person model);
+        void Update(ref Person model);
         void DeleteById(int id);
-        PersonModel GetById(int id);
-        IEnumerable<PersonModel> GetAll();
+        Person GetById(int id);
+        IEnumerable<Person> GetAll();
     }
 }

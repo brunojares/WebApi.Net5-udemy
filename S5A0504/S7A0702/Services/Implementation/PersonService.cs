@@ -1,21 +1,19 @@
-﻿using S6A0702.Moldels.Person;
-using System;
+﻿using S6A0702.Moldel.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace S6A0702.Services.Implementation
 {
     public class PersonService : IPersonService
     {
-        private static List<PersonModel> _models;
-        private static List<PersonModel> Models
+        private static List<Person> _models;
+        private static List<Person> Models
         {
             get
             {
                 if (_models == null)
                 {
-                    _models = new List<PersonModel>()
+                    _models = new List<Person>()
                     {
                         New(1, "Fulano"),
                         New(2, "Ciclano"),
@@ -26,7 +24,7 @@ namespace S6A0702.Services.Implementation
             }
         }
 
-        public void Create(ref PersonModel model)
+        public void Create(ref Person model)
         {
             try
             {
@@ -38,7 +36,7 @@ namespace S6A0702.Services.Implementation
             }
             Models.Add(model);
         }
-        public void Update(ref PersonModel model)
+        public void Update(ref Person model)
         {
             var _item = GetById(model.Id) ;
             if (_item != null)
@@ -52,16 +50,16 @@ namespace S6A0702.Services.Implementation
                 Models.Remove(_item);
         }
 
-        public IEnumerable<PersonModel> GetAll() =>
+        public IEnumerable<Person> GetAll() =>
             Models
         ;
 
-        public PersonModel GetById(int id) =>
+        public Person GetById(int id) =>
              Models.FirstOrDefault(item => item.Id == id)
         ;
 
-        private static PersonModel New(int id, string firstName) =>
-            new PersonModel()
+        private static Person New(int id, string firstName) =>
+            new Person()
             {
                 Id = id,
                 FirstName = firstName,

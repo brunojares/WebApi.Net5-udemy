@@ -1,6 +1,8 @@
+#Add appsettings.json file on webapi projetcs with this content
+
 {
   "ConnectionStrings": {
-    "WebApi001": "Server=192.168.2.4;DataBase=webapi001;Uid=root;Pwd=root"
+    "WebApi001": "Server=localhost;DataBase=webapi001;Uid=[user];Pwd=[Password]"
   },
   "Logging": {
     "LogLevel": {
