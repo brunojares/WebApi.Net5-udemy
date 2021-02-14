@@ -14,14 +14,28 @@ namespace S6A0702.Services.Implementation
             get
             {
                 if (_models == null)
-                    _models = new List<PersonModel>();
+                {
+                    _models = new List<PersonModel>()
+                    {
+                        New(1, "Fulano"),
+                        New(2, "Ciclano"),
+                        New(3, "Beltrano")
+                    };
+                }
                 return _models;
             }
         }
 
         public void Create(ref PersonModel model)
         {
-            model.Id = Models.Select(item => item.Id).Max() + 1;
+            try
+            {
+                model.Id = Models.Select(item => item.Id).Max() + 1;
+            }
+            catch
+            {
+                model.Id = 1;
+            }
             Models.Add(model);
         }
         public void Update(ref PersonModel model)
@@ -44,6 +58,17 @@ namespace S6A0702.Services.Implementation
 
         public PersonModel GetById(int id) =>
              Models.FirstOrDefault(item => item.Id == id)
+        ;
+
+        private static PersonModel New(int id, string firstName) =>
+            new PersonModel()
+            {
+                Id = id,
+                FirstName = firstName,
+                LastName = "de Tal",
+                Address = "Rua dos Bobos, 0",
+                Gender = "Male"
+            }
         ;
     }
 }

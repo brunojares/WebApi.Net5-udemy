@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using S6A0702.Moldels.Person;
+using S6A0702.Services;
 
 namespace S5A0504.Controllers
 {
@@ -13,36 +15,46 @@ namespace S5A0504.Controllers
     {
 
         private readonly ILogger<PersonController> _logger;
-
-        public PersonController(ILogger<PersonController> logger)
+        private readonly IPersonService _personService;
+        public PersonController(
+            ILogger<PersonController> logger, 
+            IPersonService personService
+        )
         {
             _logger = logger;
+            _personService = personService;
         }
 
-        [HttpGet("sum/{firstNumber}/{secoundNumber}")]
-        public IActionResult Sum(string firstNumber, string secoundNumber)
+        [HttpGet]
+        public IActionResult Get()
         {
-            Validate(firstNumber, secoundNumber, out List<string> errors, out decimal first, out decimal secound);
-            if (errors.Count == 0)
-                return Ok(first + secound);
-            else
-            {
-                return BadRequest(new
-                {
-                    title = "Invalid Input",
-                    errors
-                });
-            }
+            var _result = _personService.GetAll().ToArray();
+            return Ok(_result);
         }
-
-        [NonAction]
-        private void Validate(string firstNumber, string secoundNumber, out List<string> errors, out decimal first, out decimal secound)
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
         {
-            errors = new List<string>();
-            if (!decimal.TryParse(firstNumber, out first))
-                errors.Add($"First number '{firstNumber}' must be number");
-            if (!decimal.TryParse(secoundNumber, out secound))
-                errors.Add($"Secound number '{secoundNumber}' must be number");
+            var _result = _personService.GetById(id);
+            return _result != null ? Ok(_result) : NotFound();
+        }
+        [HttpPost]
+        public IActionResult Post([FromBody] PersonModel model)
+        {
+            _personService.Create(ref model);
+            return Accepted(model);
+        }
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] PersonModel model)
+        {
+            model.Id = id;
+            _personService.Update(ref model);
+            return Ok(model);
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _personService.DeleteById(id);
+            return NoContent();
         }
     }
 }

@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using S6A0702.Services;
+using S6A0702.Services.Implementation;
 
 namespace S5A0504
 {
@@ -32,6 +34,8 @@ namespace S5A0504
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "S6A0702", Version = "v1" });
             });
+
+            services.AddScoped<IPersonService, PersonService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
