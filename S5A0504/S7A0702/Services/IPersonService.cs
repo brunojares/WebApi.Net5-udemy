@@ -5,8 +5,8 @@ namespace S6A0702.Services
 {
     public interface IPersonService
     {
-        void Create(ref Person model);
-        void Update(ref Person model);
+        void Create(ref Person entity);
+        void Update(ref Person entity);
         void DeleteById(int id);
         Person GetById(int id);
         IEnumerable<Person> GetAll();

@@ -1,4 +1,5 @@
 ﻿using S6A0702.Moldel.Entities;
+using S6A0702.Moldels.Context;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,67 +7,44 @@ namespace S6A0702.Services.Implementation
 {
     public class PersonService : IPersonService
     {
-        private static List<Person> _models;
-        private static List<Person> Models
-        {
-            get
-            {
-                if (_models == null)
-                {
-                    _models = new List<Person>()
-                    {
-                        New(1, "Fulano"),
-                        New(2, "Ciclano"),
-                        New(3, "Beltrano")
-                    };
-                }
-                return _models;
-            }
-        }
+        private WebApi001Context _webApi001Context;
 
-        public void Create(ref Person model)
+        public PersonService(WebApi001Context webApi001Context)
         {
-            try
-            {
-                model.Id = Models.Select(item => item.Id).Max() + 1;
-            }
-            catch
-            {
-                model.Id = 1;
-            }
-            Models.Add(model);
+            _webApi001Context = webApi001Context;
         }
-        public void Update(ref Person model)
+        public IEnumerable<Person> GetAll() =>
+            _webApi001Context.People
+        ;
+
+        public Person GetById(int id) =>
+             _webApi001Context.People.FirstOrDefault(item => item.Id == id)
+        ;
+
+        public void Create(ref Person entity)
         {
-            var _item = GetById(model.Id) ;
-            if (_item != null)
-                _item.CopyFrom(model);
+            _webApi001Context.Add(entity);
+            _webApi001Context.SaveChanges();
+        }
+        public void Update(ref Person entity)
+        {
+            var _databaseEntity =
+                GetById(entity.Id) ??
+                throw new KeyNotFoundException($"Person {entity.Id} not found")
+            ;
+            _databaseEntity.CopyFrom(entity);
+            _webApi001Context.SaveChanges();
         }
 
         public void DeleteById(int id)
         {
-            var _item = GetById(id);
-            if (_item != null)
-                Models.Remove(_item);
+            var _databaseEntity = GetById(id);
+            if (_databaseEntity != null)
+            {
+                _webApi001Context.People.Remove(_databaseEntity);
+                _webApi001Context.SaveChanges();
+            }
         }
 
-        public IEnumerable<Person> GetAll() =>
-            Models
-        ;
-
-        public Person GetById(int id) =>
-             Models.FirstOrDefault(item => item.Id == id)
-        ;
-
-        private static Person New(int id, string firstName) =>
-            new Person()
-            {
-                Id = id,
-                FirstName = firstName,
-                LastName = "de Tal",
-                Address = "Rua dos Bobos, 0",
-                Gender = "Male"
-            }
-        ;
     }
 }
