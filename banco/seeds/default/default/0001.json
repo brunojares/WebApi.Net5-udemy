@@ -1,9 +1,9 @@
 ﻿{
-  "name": "//TODO: name of task",
+  "name": "Seed person",
   "script": [
-    "//TODO: script task"
-  ],
-  "parameters": {
-    "prior:id": "//TODO: previous id"
-  }
+    "insert into person (first_name, last_name, address, gender) values ",
+	"('Fulano', 'de Tal', 'Rua dos bobos, 0', 'Male'), ",
+	"('Ciclano', 'de Tal', 'Rua dos bobos, 0', 'Male'), ",
+	"('Beltrano', 'de Tal', 'Rua dos bobos, 0', 'Male') "
+  ]
 }
