@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using S6A0702.Moldels.Context;
 using S6A0702.Services;
 using S6A0702.Services.Implementation;
 
@@ -30,6 +32,13 @@ namespace S5A0504
         {
 
             services.AddControllers();
+
+            services.AddDbContext<WebApi001Context>(options =>
+            {
+                var configuration = Configuration["ConnectionStrings:WebApi001"];
+                options.UseMySql(configuration);
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "S6A0702", Version = "v1" });
