@@ -19,18 +19,5 @@ namespace S6A0702.Moldel.Entities
         public string Address { get; set; }
         [Column("gender")]
         public string Gender { get; set; }
-
-        public void CopyFrom(Person model, bool withId = false)
-        {
-            if (model != null)
-            {
-                if (withId)
-                    Id = model.Id;
-                FirstName = model.FirstName;
-                LastName = model.LastName;
-                Address = model.Address;
-                Gender = model.Gender;
-            }
-        }
     }
 }

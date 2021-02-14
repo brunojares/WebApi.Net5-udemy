@@ -32,7 +32,7 @@ namespace S6A0702.Services.Implementation
                 GetById(entity.Id) ??
                 throw new KeyNotFoundException($"Person {entity.Id} not found")
             ;
-            _databaseEntity.CopyFrom(entity);
+            _webApi001Context.Entry(_databaseEntity).CurrentValues.SetValues(entity);
             _webApi001Context.SaveChanges();
         }
 

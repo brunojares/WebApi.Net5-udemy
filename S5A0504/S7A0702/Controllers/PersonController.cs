@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using S6A0702.Moldel.Entities;
 using S6A0702.Services;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace S5A0504.Controllers
@@ -43,9 +44,22 @@ namespace S5A0504.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Person model)
         {
-            model.Id = id;
-            _personService.Update(ref model);
-            return Ok(model);
+            try
+            {
+                model.Id = id;
+                _personService.Update(ref model);
+                return Ok(model);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new
+                {
+                    title = "Not found",
+                    error = new string[]{
+                       ex.Message
+                    }
+                });
+            }
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
