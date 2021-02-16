@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using S6A0702.Moldels.Context;
 using S6A0702.Business;
 using S6A0702.Business.Implementation;
+using S6A0702.Moldels.Context;
+using S6A0702.Repository;
+using S6A0702.Repository.Implementation;
 
 namespace S5A0504
 {
@@ -46,7 +41,9 @@ namespace S5A0504
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "S6A0702", Version = "v1" });
             });
 
-            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+
+            services.AddScoped<IPersonBusiness, PersonBusiness>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

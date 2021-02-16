@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace S6A0702.Business
 {
-    public interface IPersonService
+    public interface IPersonBusiness
     {
         void Create(ref Person entity);
         void Update(ref Person entity);
-        void DeleteById(int id);
-        Person GetById(int id);
+        void DeleteById(long id);
+        Person GetById(long id);
         IEnumerable<Person> GetAll();
     }
 }

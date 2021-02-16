@@ -14,32 +14,32 @@ namespace S5A0504.Controllers
     {
 
         private readonly ILogger<PersonController> _logger;
-        private readonly IPersonService _personService;
+        private readonly IPersonBusiness _personBusiness;
         public PersonController(
-            ILogger<PersonController> logger, 
-            IPersonService personService
+            ILogger<PersonController> logger,
+            IPersonBusiness personBusiness
         )
         {
             _logger = logger;
-            _personService = personService;
+            _personBusiness = personBusiness;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var _result = _personService.GetAll().ToArray();
+            var _result = _personBusiness.GetAll().ToArray();
             return Ok(_result);
         }
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var _result = _personService.GetById(id);
+            var _result = _personBusiness.GetById(id);
             return _result != null ? Ok(_result) : NotFound();
         }
         [HttpPost]
         public IActionResult Post([FromBody] Person model)
         {
-            _personService.Create(ref model);
+            _personBusiness.Create(ref model);
             return Accepted(model);
         }
         [HttpPut("{id}")]
@@ -48,7 +48,7 @@ namespace S5A0504.Controllers
             try
             {
                 model.Id = id;
-                _personService.Update(ref model);
+                _personBusiness.Update(ref model);
                 return Ok(model);
             }
             catch (KeyNotFoundException ex)
@@ -65,7 +65,7 @@ namespace S5A0504.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _personService.DeleteById(id);
+            _personBusiness.DeleteById(id);
             return NoContent();
         }
     }

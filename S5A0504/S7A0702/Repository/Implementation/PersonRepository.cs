@@ -3,13 +3,13 @@ using S6A0702.Moldels.Context;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace S6A0702.Business.Implementation
+namespace S6A0702.Repository.Implementation
 {
-    public class PersonService : IPersonService
+    public class PersonRepository : IPersonRepository
     {
         private WebApi001Context _webApi001Context;
 
-        public PersonService(WebApi001Context webApi001Context)
+        public PersonRepository(WebApi001Context webApi001Context)
         {
             _webApi001Context = webApi001Context;
         }
@@ -17,10 +17,13 @@ namespace S6A0702.Business.Implementation
             _webApi001Context.People
         ;
 
-        public Person GetById(int id) =>
+        public Person GetById(long id) =>
              _webApi001Context.People.FirstOrDefault(item => item.Id == id)
         ;
 
+        public bool Exists(long id) =>
+            _webApi001Context.People.Count(item => item.Id == id) > 0
+        ;
         public void Create(ref Person entity)
         {
             _webApi001Context.Add(entity);
@@ -36,7 +39,7 @@ namespace S6A0702.Business.Implementation
             _webApi001Context.SaveChanges();
         }
 
-        public void DeleteById(int id)
+        public void DeleteById(long id)
         {
             var _databaseEntity = GetById(id);
             if (_databaseEntity != null)
