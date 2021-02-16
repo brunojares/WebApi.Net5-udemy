@@ -31,10 +31,7 @@ namespace S6A0702.Repository.Implementation
         }
         public void Update(ref Person entity)
         {
-            var _databaseEntity =
-                GetById(entity.Id) ??
-                throw new KeyNotFoundException($"Person {entity.Id} not found")
-            ;
+            var _databaseEntity = GetById(entity.Id);
             _webApi001Context.Entry(_databaseEntity).CurrentValues.SetValues(entity);
             _webApi001Context.SaveChanges();
         }
@@ -42,11 +39,8 @@ namespace S6A0702.Repository.Implementation
         public void DeleteById(long id)
         {
             var _databaseEntity = GetById(id);
-            if (_databaseEntity != null)
-            {
-                _webApi001Context.People.Remove(_databaseEntity);
-                _webApi001Context.SaveChanges();
-            }
+            _webApi001Context.People.Remove(_databaseEntity);
+            _webApi001Context.SaveChanges();
         }
 
     }

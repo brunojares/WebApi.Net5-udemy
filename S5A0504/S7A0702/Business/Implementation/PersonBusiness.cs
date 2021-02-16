@@ -1,5 +1,6 @@
 ﻿using S6A0702.Moldel.Entities;
 using S6A0702.Moldels.Context;
+using S6A0702.Repository;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,44 +8,37 @@ namespace S6A0702.Business.Implementation
 {
     public class PersonBusiness : IPersonBusiness
     {
-        private WebApi001Context _webApi001Context;
+        private readonly IPersonRepository _personRepository;
 
-        public PersonBusiness(WebApi001Context webApi001Context)
+        public PersonBusiness(IPersonRepository personRepository)
         {
-            _webApi001Context = webApi001Context;
+            _personRepository = personRepository;
         }
+
         public IEnumerable<Person> GetAll() =>
-            _webApi001Context.People
+            _personRepository.GetAll()
         ;
 
         public Person GetById(long id) =>
-             _webApi001Context.People.FirstOrDefault(item => item.Id == id)
+             _personRepository.GetById(id)
         ;
 
         public void Create(ref Person entity)
         {
-            _webApi001Context.Add(entity);
-            _webApi001Context.SaveChanges();
+            _personRepository.Create(ref entity);
         }
+
         public void Update(ref Person entity)
         {
-            var _databaseEntity =
-                GetById(entity.Id) ??
-                throw new KeyNotFoundException($"Person {entity.Id} not found")
-            ;
-            _webApi001Context.Entry(_databaseEntity).CurrentValues.SetValues(entity);
-            _webApi001Context.SaveChanges();
+            if (!_personRepository.Exists(entity.Id))
+                throw new KeyNotFoundException($"Person {entity.Id} not found");
+            _personRepository.Update(ref entity);
         }
 
         public void DeleteById(long id)
         {
-            var _databaseEntity = GetById(id);
-            if (_databaseEntity != null)
-            {
-                _webApi001Context.People.Remove(_databaseEntity);
-                _webApi001Context.SaveChanges();
-            }
+            if (_personRepository.Exists(id))
+                _personRepository.DeleteById(id);
         }
-
     }
 }
