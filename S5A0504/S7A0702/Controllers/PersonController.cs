@@ -7,8 +7,9 @@ using System.Linq;
 
 namespace S5A0504.Controllers
 {
+    [ApiVersion("1")]
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
     public class PersonController : ControllerBase
     {
 

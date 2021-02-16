@@ -39,6 +39,8 @@ namespace S5A0504
                 options.UseMySql(configuration);
             });
 
+            services.AddApiVersioning();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "S6A0702", Version = "v1" });
