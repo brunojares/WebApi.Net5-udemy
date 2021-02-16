@@ -34,7 +34,17 @@ namespace S5A0504.Controllers
         public IActionResult Get(int id)
         {
             var _result = _personBusiness.GetById(id);
-            return _result != null ? Ok(_result) : NotFound();
+            return
+                _result != null ?
+                Ok(_result) :
+                NotFound(new
+                {
+                    title = "Not found",
+                    error = new string[]{
+                       $"Person {id} not found"
+                    }
+                })
+            ;
         }
         [HttpPost]
         public IActionResult Post([FromBody] Person model)
