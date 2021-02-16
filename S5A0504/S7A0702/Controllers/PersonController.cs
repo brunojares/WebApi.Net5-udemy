@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using S6A0702.Moldel.Entities;
-using S6A0702.Services;
+using S6A0702.Business;
 using System.Collections.Generic;
 using System.Linq;
 

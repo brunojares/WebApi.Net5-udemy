@@ -13,8 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using S6A0702.Moldels.Context;
-using S6A0702.Services;
-using S6A0702.Services.Implementation;
+using S6A0702.Business;
+using S6A0702.Business.Implementation;
 
 namespace S5A0504
 {

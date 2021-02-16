@@ -1,7 +1,7 @@
 ﻿using S6A0702.Moldel.Entities;
 using System.Collections.Generic;
 
-namespace S6A0702.Services
+namespace S6A0702.Business
 {
     public interface IPersonService
     {

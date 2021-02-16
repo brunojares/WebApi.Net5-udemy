@@ -3,7 +3,7 @@ using S6A0702.Moldels.Context;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace S6A0702.Services.Implementation
+namespace S6A0702.Business.Implementation
 {
     public class PersonService : IPersonService
     {
