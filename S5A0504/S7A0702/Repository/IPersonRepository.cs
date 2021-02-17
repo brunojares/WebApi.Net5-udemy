@@ -3,13 +3,7 @@ using System.Collections.Generic;
 
 namespace S6A0702.Repository
 {
-    public interface IPersonRepository
+    public interface IPersonRepository : IRepository<Person>
     {
-        Person GetById(long id);
-        IEnumerable<Person> GetAll();
-        bool Exists(long id);
-        void Create(ref Person entity);
-        void Update(ref Person entity);
-        void DeleteById(long id);
     }
 }

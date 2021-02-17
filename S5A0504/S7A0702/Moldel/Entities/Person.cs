@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 namespace S6A0702.Moldel.Entities
 {
     [Table("person")]
-    public class Person
+    public class Person : EntityBase
     {
-        [Column("id")]
-        public long Id { get; set; }
         [Column("first_name")]
         public string FirstName { get; set; }
         [Column("last_name")]

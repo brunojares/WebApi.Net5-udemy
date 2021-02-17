@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 
 namespace S6A0702.Repository
 {
-    public interface IBookRepository
+    public interface IBookRepository : IRepository<Book>
     {
-        Book GetById(long id);
-        IEnumerable<Book> GetAll();
-        bool Exists(long id);
-        void Create(ref Book entity);
-        void Update(ref Book entity);
-        void DeleteById(long id);
     }
 }
