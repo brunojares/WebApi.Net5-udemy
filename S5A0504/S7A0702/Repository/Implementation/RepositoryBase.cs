@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using S6A0702.Moldel.Entities;
 using S6A0702.Moldels.Context;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace S6A0702.Repository.Implementation
 {
@@ -13,41 +10,49 @@ namespace S6A0702.Repository.Implementation
         where TEntity : EntityBase
     {
         protected WebApi001Context Context { get; }
-        protected abstract DbSet<TEntity> Entities { get; }
+        private readonly DbSet<TEntity> _entities;
 
         protected RepositoryBase(WebApi001Context context)
         {
             Context = context;
+            _entities = context.Set<TEntity>();
         }
 
         public IEnumerable<TEntity> GetAll() =>
-            Entities
+            _entities
         ;
         public TEntity GetById(long id) =>
-            Entities.FirstOrDefault(item => item.Id == id)
+            _entities.FirstOrDefault(item => item.Id == id)
         ;
         public bool Exists(long id) =>
-            Entities.Count(item => item.Id == id) > 0
+            _entities.Count(item => item.Id == id) > 0
         ;
-        public virtual void Create(ref TEntity entity)
+        public virtual bool Create(ref TEntity entity)
         {
-            Entities.Add(entity);
-            Context.SaveChanges();
+            _entities.Add(entity);
+            return Context.SaveChanges() > 0;
         }
-        public virtual void Update(ref TEntity entity)
+        public virtual bool Update(ref TEntity entity)
         {
-            var _databaseEntity = GetById(entity.Id);
-            Context.Entry(_databaseEntity).CurrentValues.SetValues(entity);
-            Context.SaveChanges();
+            if (Exists(entity.Id))
+            {
+                var _databaseEntity = GetById(entity.Id);
+                Context.Entry(_databaseEntity).CurrentValues.SetValues(entity);
+                return Context.SaveChanges() > 0;
+            }
+            else
+                return false;
         }
-        public virtual void DeleteById(long id)
+        public virtual bool DeleteById(long id)
         {
             if (Exists(id))
             {
                 var _entity = GetById(id);
-                Entities.Remove(_entity);
-                Context.SaveChanges();
+                _entities.Remove(_entity);
+                return Context.SaveChanges() > 0;
             }
+            else
+                return false;
         }
     }
 }

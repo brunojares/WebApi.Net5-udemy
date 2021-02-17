@@ -12,8 +12,8 @@ namespace S6A0702.Repository
         TEntity GetById(long id);
         IEnumerable<TEntity> GetAll();
         bool Exists(long id);
-        void Create(ref TEntity entity);
-        void Update(ref TEntity entity);
-        void DeleteById(long id);
+        bool Create(ref TEntity entity);
+        bool Update(ref TEntity entity);
+        bool DeleteById(long id);
     }
 }
