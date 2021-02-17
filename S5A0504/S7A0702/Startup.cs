@@ -42,8 +42,10 @@ namespace S5A0504
             });
 
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
 
             services.AddScoped<IPersonBusiness, PersonBusiness>();
+            services.AddScoped<IBookBusiness, BookBusiness>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
