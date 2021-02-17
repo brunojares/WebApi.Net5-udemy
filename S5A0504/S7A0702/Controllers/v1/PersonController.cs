@@ -5,9 +5,10 @@ using S6A0702.Business;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace S5A0504.Controllers
+namespace S5A0504.Controllers.v1
 {
     [ApiVersion("1")]
+    [ApiExplorerSettings(GroupName = "v1")]
     [ApiController]
     [Route("v{version:apiVersion}/[controller]")]
     public class PersonController : ControllerBase

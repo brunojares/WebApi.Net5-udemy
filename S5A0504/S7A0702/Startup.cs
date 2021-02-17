@@ -10,6 +10,7 @@ using S6A0702.Business.Implementation;
 using S6A0702.Moldels.Context;
 using S6A0702.Repository;
 using S6A0702.Repository.Implementation;
+using System.Linq;
 
 namespace S5A0504
 {
@@ -39,6 +40,10 @@ namespace S5A0504
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "S6A0702", Version = "v1" });
+                c.SwaggerDoc("v2", new OpenApiInfo { Title = "S6A0702", Version = "v2" });
+
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                c.DocInclusionPredicate((_, api) => !string.IsNullOrWhiteSpace(api.GroupName));
             });
 
             services.AddScoped<IPersonRepository, PersonRepository>();
@@ -56,6 +61,7 @@ namespace S5A0504
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "S6A0702 v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v2/swagger.json", "S6A0702 v2"));
             }
 
             //app.UseHttpsRedirection();

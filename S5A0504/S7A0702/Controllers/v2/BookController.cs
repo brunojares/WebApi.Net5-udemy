@@ -4,9 +4,10 @@ using S6A0702.Moldel.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace S6A0702.Controllers
+namespace S6A0702.Controllers.v2
 {
-    [ApiVersion("1")]
+    [ApiVersion("2")]
+    [ApiExplorerSettings(GroupName = "v2")]
     [ApiController]
     [Route("v{version:apiVersion}/[controller]")]
     public class BookController : ControllerBase
