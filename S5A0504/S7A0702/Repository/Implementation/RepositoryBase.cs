@@ -34,25 +34,15 @@ namespace S6A0702.Repository.Implementation
         }
         public virtual bool Update(ref TEntity entity)
         {
-            if (Exists(entity.Id))
-            {
-                var _databaseEntity = GetById(entity.Id);
-                Context.Entry(_databaseEntity).CurrentValues.SetValues(entity);
-                return Context.SaveChanges() > 0;
-            }
-            else
-                return false;
+            var _databaseEntity = GetById(entity.Id);
+            Context.Entry(_databaseEntity).CurrentValues.SetValues(entity);
+            return Context.SaveChanges() > 0;
         }
         public virtual bool DeleteById(long id)
         {
-            if (Exists(id))
-            {
-                var _entity = GetById(id);
-                _entities.Remove(_entity);
-                return Context.SaveChanges() > 0;
-            }
-            else
-                return false;
+            var _entity = GetById(id);
+            _entities.Remove(_entity);
+            return Context.SaveChanges() > 0;
         }
     }
 }
