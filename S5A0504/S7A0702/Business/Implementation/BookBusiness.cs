@@ -1,9 +1,6 @@
 ﻿using S6A0702.Moldel.Entities;
 using S6A0702.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace S6A0702.Business.Implementation
 {
@@ -28,7 +25,7 @@ namespace S6A0702.Business.Implementation
         ;
         public void Update(ref Book entity)
         {
-            if(!_bookRepository.Exists(entity.Id))
+            if (!_bookRepository.Exists(entity.Id))
                 throw new KeyNotFoundException($"Book {entity.Id} not found");
             _bookRepository.Update(ref entity);
         }

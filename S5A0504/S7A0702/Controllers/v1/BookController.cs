@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using S6A0702.Business;
 using S6A0702.Moldel.Entities;
+using S6A0702.VO;
+using S6A0702.VO.v1;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,13 +24,20 @@ namespace S6A0702.Controllers.v1
         [HttpGet]
         public IActionResult Get()
         {
-            var _result = _bookBusiness.GetAll().ToArray();
+            var _result = _bookBusiness
+                .GetAll()
+                .Parse<Book, BookVO>()
+                .ToArray()
+            ;
             return Ok(_result);
         }
         [HttpGet("{id}")]
         public ActionResult Get(long id)
         {
-            var _result = _bookBusiness.GetById(id);
+            var _result = _bookBusiness
+                .GetById(id)
+                .CreateVO<Book, BookVO>()
+            ;
             return
                 _result != null ?
                 Ok(_result) :
@@ -43,19 +52,21 @@ namespace S6A0702.Controllers.v1
             ;
         }
         [HttpPost]
-        public ActionResult Post([FromBody] Book book)
+        public ActionResult Post([FromBody] BookVO book)
         {
-            _bookBusiness.Create(ref book);
-            return Accepted(book);
+            var _entity = book.CreateEntity();
+            _bookBusiness.Create(ref _entity);
+            return Accepted(_entity);
         }
         [HttpPut("{id}")]
-        public ActionResult Put(long id, [FromBody] Book book)
+        public ActionResult Put(long id, [FromBody] BookVO book)
         {
             try
             {
-                book.Id = id;
-                _bookBusiness.Update(ref book);
-                return Ok(book);
+                var _entity = book.CreateEntity();
+                _entity.Id = id;
+                _bookBusiness.Update(ref _entity);
+                return Ok(_entity);
             }
             catch (KeyNotFoundException ex)
             {

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using S6A0702.Moldel.Entities;
 using S6A0702.Business;
+using S6A0702.Moldel.Entities;
+using S6A0702.VO;
+using S6A0702.VO.v1;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,13 +30,20 @@ namespace S5A0504.Controllers.v1
         [HttpGet]
         public IActionResult Get()
         {
-            var _result = _personBusiness.GetAll().ToArray();
+            var _result = _personBusiness
+                .GetAll()
+                .Parse<Person, PersonVO>()
+                .ToArray()
+            ;
             return Ok(_result);
         }
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var _result = _personBusiness.GetById(id);
+            var _result = _personBusiness
+                .GetById(id)
+                .CreateVO<Person, PersonVO>()
+            ;
             return
                 _result != null ?
                 Ok(_result) :
@@ -48,19 +57,21 @@ namespace S5A0504.Controllers.v1
             ;
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Person model)
+        public IActionResult Post([FromBody] PersonVO model)
         {
-            _personBusiness.Create(ref model);
-            return Accepted(model);
+            var _entity = model.CreateEntity();
+            _personBusiness.Create(ref _entity);
+            return Accepted(_entity);
         }
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Person model)
+        public IActionResult Put(int id, [FromBody] PersonVO model)
         {
             try
             {
-                model.Id = id;
-                _personBusiness.Update(ref model);
-                return Ok(model);
+                var _entity = model.CreateEntity();
+                _entity.Id = id;
+                _personBusiness.Update(ref _entity);
+                return Ok(_entity);
             }
             catch (KeyNotFoundException ex)
             {
