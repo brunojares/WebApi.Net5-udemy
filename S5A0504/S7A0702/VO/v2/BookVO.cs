@@ -23,7 +23,7 @@ namespace S6A0702.VO.v2
 
         public void CopyTo(ref Book entity)
         {
-            if (entity == null)
+            if (entity != null)
             {
                 entity.Author = Author;
                 entity.LaunchDate = LaunchDate;

@@ -25,9 +25,9 @@ namespace S6A0702.VO.v2
             if (entity != null)
             {
                 entity.FirstName = FirstName;
-                LastName = entity.LastName;
-                Address = entity.Address;
-                Gender = entity.Gender;
+                entity.LastName = LastName;
+                entity.Address = Address;
+                entity.Gender = Gender;
             }
         }
     }
