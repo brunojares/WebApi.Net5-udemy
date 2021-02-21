@@ -26,7 +26,7 @@ namespace S6A0702.Controllers.v1
         {
             var _result = _bookBusiness
                 .GetAll()
-                .Parse<Book, BookVO>()
+                .Parse<Book, BookOutVO>()
                 .ToArray()
             ;
             return Ok(_result);
@@ -36,7 +36,7 @@ namespace S6A0702.Controllers.v1
         {
             var _result = _bookBusiness
                 .GetById(id)
-                .CreateVO<Book, BookVO>()
+                .CreateVO<Book, BookOutVO>()
             ;
             return
                 _result != null ?
@@ -52,14 +52,14 @@ namespace S6A0702.Controllers.v1
             ;
         }
         [HttpPost]
-        public ActionResult Post([FromBody] BookVO book)
+        public ActionResult Post([FromBody] BookInVO book)
         {
             var _entity = book.CreateEntity();
             _bookBusiness.Create(ref _entity);
             return Accepted(_entity);
         }
         [HttpPut("{id}")]
-        public ActionResult Put(long id, [FromBody] BookVO book)
+        public ActionResult Put(long id, [FromBody] BookInVO book)
         {
             try
             {

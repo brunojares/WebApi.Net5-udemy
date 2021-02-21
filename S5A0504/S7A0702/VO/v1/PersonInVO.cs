@@ -2,14 +2,14 @@
 
 namespace S6A0702.VO.v1
 {
-    public class PersonVO : IVO<Person>
+    public class PersonInVO : IVO<Person>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
 
-        public void CopyFrom(Person entity)
+        public virtual void CopyFrom(Person entity)
         {
             if (entity != null)
             {
@@ -20,7 +20,7 @@ namespace S6A0702.VO.v1
             }
         }
 
-        public void CopyTo(ref Person entity)
+        public virtual void CopyTo(ref Person entity)
         {
             if (entity != null)
             {

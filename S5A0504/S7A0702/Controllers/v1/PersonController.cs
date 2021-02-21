@@ -32,7 +32,7 @@ namespace S5A0504.Controllers.v1
         {
             var _result = _personBusiness
                 .GetAll()
-                .Parse<Person, PersonVO>()
+                .Parse<Person, PersonOutVO>()
                 .ToArray()
             ;
             return Ok(_result);
@@ -42,7 +42,7 @@ namespace S5A0504.Controllers.v1
         {
             var _result = _personBusiness
                 .GetById(id)
-                .CreateVO<Person, PersonVO>()
+                .CreateVO<Person, PersonOutVO>()
             ;
             return
                 _result != null ?
@@ -57,14 +57,14 @@ namespace S5A0504.Controllers.v1
             ;
         }
         [HttpPost]
-        public IActionResult Post([FromBody] PersonVO model)
+        public IActionResult Post([FromBody] PersonInVO model)
         {
             var _entity = model.CreateEntity();
             _personBusiness.Create(ref _entity);
             return Accepted(_entity);
         }
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] PersonVO model)
+        public IActionResult Put(int id, [FromBody] PersonInVO model)
         {
             try
             {

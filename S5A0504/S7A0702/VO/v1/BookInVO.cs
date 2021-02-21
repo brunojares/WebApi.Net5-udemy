@@ -3,14 +3,14 @@ using System;
 
 namespace S6A0702.VO.v1
 {
-    public class BookVO : IVO<Book>
+    public class BookInVO : IVO<Book>
     {
         public string Author { get; set; }
         public DateTime? LaunchDate { get; set; }
         public decimal Price { get; set; }
         public string Title { get; set; }
 
-        public void CopyFrom(Book entity)
+        public virtual void CopyFrom(Book entity)
         {
             if (entity != null)
             {
@@ -21,7 +21,7 @@ namespace S6A0702.VO.v1
             }
         }
 
-        public void CopyTo(ref Book entity)
+        public virtual void CopyTo(ref Book entity)
         {
             if (entity != null)
             {
