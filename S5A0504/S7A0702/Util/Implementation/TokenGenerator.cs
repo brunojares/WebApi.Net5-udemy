@@ -30,8 +30,8 @@ namespace S6A0702.Util.Implementation
                 , _tokenConfiguration.Audience
                 , claims
                 , DateTime.Now
-                , DateTime.Now.AddMinutes(_tokenConfiguration.Minutes),
-                _signinCredentias
+                , DateTime.Now.AddMinutes(_tokenConfiguration.Minutes)
+                , _signinCredentias
             );
             return new JwtSecurityTokenHandler().WriteToken(_options);
         }
