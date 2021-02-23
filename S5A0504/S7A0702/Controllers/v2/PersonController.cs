@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using S6A0702.Business;
 using S6A0702.Moldel.Entities;
@@ -12,6 +13,7 @@ namespace S5A0504.Controllers.v2
     [ApiVersion("2")]
     [ApiExplorerSettings(GroupName = "v2")]
     [ApiController]
+    [Authorize("Bearer")]
     [Route("v{version:apiVersion}/[controller]")]
     public class PersonController : ControllerBase
     {

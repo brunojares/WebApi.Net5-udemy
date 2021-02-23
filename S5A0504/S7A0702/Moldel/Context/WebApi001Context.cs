@@ -11,5 +11,6 @@ namespace S6A0702.Moldels.Context
 
         public DbSet<Person> People { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
