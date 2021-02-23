@@ -21,7 +21,7 @@ namespace S6A0702.Util.Implementation
             _tokenConfiguration = tokenConfiguration;
         }
 
-        public string Generate(IEnumerable<Claim> claims)
+        public string GetAccessToken(IEnumerable<Claim> claims)
         {
             var _secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenConfiguration.Secret));
             var _signinCredentias = new SigningCredentials(_secretKey, SecurityAlgorithms.HmacSha256);
@@ -35,7 +35,7 @@ namespace S6A0702.Util.Implementation
             );
             return new JwtSecurityTokenHandler().WriteToken(_options);
         }
-        public string Refresh()
+        public string GetRefreshToken()
         {
             using (var _random = RandomNumberGenerator.Create())
             {

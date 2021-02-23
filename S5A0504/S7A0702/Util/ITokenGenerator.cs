@@ -8,8 +8,8 @@ namespace S6A0702.Util
 {
     public interface ITokenGenerator
     {
-        string Generate(IEnumerable<Claim> claims);
-        string Refresh();
+        string GetAccessToken(IEnumerable<Claim> claims);
+        string GetRefreshToken();
         ClaimsPrincipal GetPrincipalFromExpired(string token);
     }
 }

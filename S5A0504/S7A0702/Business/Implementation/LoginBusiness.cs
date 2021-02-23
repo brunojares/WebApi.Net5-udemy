@@ -38,8 +38,8 @@ namespace S6A0702.Business.Implementation
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
                 new Claim(JwtRegisteredClaimNames.UniqueName, _user.UserName)
             };
-            var _accessToken = _tokenGenerator.Generate(_claims);
-            var _refreshToken = _tokenGenerator.Refresh();
+            var _accessToken = _tokenGenerator.GetAccessToken(_claims);
+            var _refreshToken = _tokenGenerator.GetRefreshToken();
             _user.RefreshToken = _refreshToken;
             _user.RefreshTokenExpiryTime = DateTime.Now.AddDays(_tokenConfiguration.Days);
             var _createDate = DateTime.Now;
