@@ -55,5 +55,31 @@ namespace S6A0702.Business.Implementation
                 _refreshToken
             );
         }
+
+        public Token Refresh(string accessToken, string refreshToken)
+        {
+            var _principal = _tokenGenerator.GetPrincipalFromExpired(accessToken);
+            var _userName = _principal.Identity.Name;
+            var _user = 
+                _userRepository.GetByRefreshToken(_userName, refreshToken) ??
+                throw new SecurityException($"User {_userName} or Refresh Token not found")
+            ;
+            if (_user.RefreshTokenExpiryTime < DateTime.Now)
+                throw new SecurityException("Token has expired");
+            //======
+            accessToken = _tokenGenerator.GetAccessToken(_principal.Claims);
+            _user.RefreshToken = _tokenGenerator.GetRefreshToken();
+            var _createDate = DateTime.Now;
+            _user.RefreshTokenExpiryTime = _createDate.AddMinutes(_tokenConfiguration.Minutes);
+            _userRepository.RefreshCredentials(ref _user);
+            //======
+            return new Token(
+                true,
+                _createDate.ToString(DATE_FORMAT),
+                _user.RefreshTokenExpiryTime.ToString(DATE_FORMAT),
+                accessToken,
+                _user.RefreshToken
+            );
+        }
     }
 }

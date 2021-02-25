@@ -26,6 +26,12 @@ namespace S6A0702.Repository.Implementation
                 item.Password == password
             );
         }
+        public User GetByRefreshToken(string userName, string refreshToken) =>
+            Context.Users.FirstOrDefault(item => 
+                item.UserName == userName &&
+                item.RefreshToken == refreshToken
+            )
+        ;
         public void RefreshCredentials(ref User user)
         {
             var _dataBaseUser =
@@ -46,6 +52,7 @@ namespace S6A0702.Repository.Implementation
             var _hashedBytes = _provider.ComputeHash(_inputBytes);
             return BitConverter.ToString(_hashedBytes);
         }
+
 
     }
 }

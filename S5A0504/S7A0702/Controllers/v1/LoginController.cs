@@ -29,12 +29,51 @@ namespace S5A0504.Controllers.v1
         public ActionResult Signin([FromBody] LoginInVO vo)
         {
             if (vo == null)
-                return BadRequest("No credentials");
+                return BadRequest("No inputs");
             try
             {
                 var _result = _loginBusiness
                     .Autenticate(vo.UserName, vo.Password)
                     .CreateVO<Token, LoginOutVO>()
+                ;
+                return Ok(_result);
+            }
+            catch (SecurityException ex)
+            {
+                return Unauthorized(new
+                {
+                    title = "Access denied",
+                    errors = new string[]
+                    {
+                        ex.Message
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                    (int)HttpStatusCode.InternalServerError,
+                    new
+                    {
+                        title = "Service error",
+                        errors = new string[]
+                        {
+                            ex.Message
+                        }
+                    }
+                );
+            }
+        }
+        [HttpPatch("refresh")]
+        public ActionResult Refresh([FromBody] LoginRefreshInVO vo)
+        {
+            if (vo == null)
+                return BadRequest("No inputs");
+            try
+            {
+                var _result = _loginBusiness
+                    .Refresh(vo.AccessToken, vo.RefreshToken)
+                    .CreateVO<Token, LoginRefreshOutVO>()
                 ;
                 return Ok(_result);
             }
