@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using S6A0702.Business;
 using S6A0702.Business.Implementation;
 using S6A0702.Configuration;
+using S6A0702.Filter;
 using S6A0702.Moldels.Context;
 using S6A0702.Repository;
 using S6A0702.Repository.Implementation;
@@ -81,6 +82,12 @@ namespace S5A0504
                     .Build()
                 ;
                 options.AddPolicy("Bearer", _policy);
+                /*
+                options.AddPolicy("check_user", builder => builder.RequireAssertion(context =>
+                {
+                    context.Resource.
+                }));
+                */
             });
 
             services.AddDbContext<WebApi001Context>(options =>
@@ -105,6 +112,7 @@ namespace S5A0504
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
+
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement() {
                     {
                         new OpenApiSecurityScheme()
@@ -123,6 +131,7 @@ namespace S5A0504
             services.AddSingleton(_tokenConfiguration);
 
             services.AddTransient<ITokenGenerator, TokenGenerator>();
+            services.AddScoped<AuthorizationFilter>();
 
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IBookRepository, BookRepository>();

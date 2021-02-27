@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using S6A0702.Business;
+using S6A0702.Filter;
 using S6A0702.Moldel.Entities;
 using S6A0702.VO;
 using S6A0702.VO.v1;
@@ -106,6 +107,7 @@ namespace S5A0504.Controllers.v1
         }
         [HttpPatch("revoke")]
         [Authorize("Bearer")]
+        [AuthorizationFilter]
         public ActionResult Revoke()
         {
             try

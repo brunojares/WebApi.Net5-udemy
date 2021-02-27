@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using S6A0702.Business;
+using S6A0702.Filter;
 using S6A0702.Moldel.Entities;
 using S6A0702.VO;
 using S6A0702.VO.v1;
@@ -13,6 +14,7 @@ namespace S6A0702.Controllers.v1
     [ApiExplorerSettings(GroupName = "v1")]
     [ApiController]
     [Authorize("Bearer")]
+    [AuthorizationFilter]
     [Route("v{version:apiVersion}/[controller]")]
     public class BookController : ControllerBase
     {
