@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using S6A0702.Business;
 using S6A0702.Moldel.Entities;
@@ -96,6 +97,42 @@ namespace S5A0504.Controllers.v1
                     {
                         title = "Service error",
                         errors = new string[]
+                        {
+                            ex.Message
+                        }
+                    }
+                );
+            }
+        }
+        [HttpPatch("revoke")]
+        [Authorize("Bearer")]
+        public ActionResult Revoke()
+        {
+            try
+            {
+                var userName = User.Identity.Name;
+                _loginBusiness.RevokeToken(userName);
+                return Ok(new { userName });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new
+                {
+                    title = "Not found",
+                    erros = new string[]
+                    {
+                        ex.Message
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                    (int) HttpStatusCode.InternalServerError,
+                    new
+                    {
+                        title = "Service error",
+                        erros = new string[]
                         {
                             ex.Message
                         }

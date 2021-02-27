@@ -56,6 +56,12 @@ namespace S6A0702.Business.Implementation
             );
         }
 
+        public void Authorize(string userName)
+        {
+            if (!_userRepository.VerifyIsAuthenticated(userName))
+                throw new SecurityException($"User {userName} is not authenticated");
+        }
+
         public Token Refresh(string accessToken, string refreshToken)
         {
             var _principal = _tokenGenerator.GetPrincipalFromExpired(accessToken);
@@ -81,5 +87,8 @@ namespace S6A0702.Business.Implementation
                 _user.RefreshToken
             );
         }
+        public void RevokeToken(string userName) =>
+            _userRepository.RevokeToken(userName)
+        ;
     }
 }

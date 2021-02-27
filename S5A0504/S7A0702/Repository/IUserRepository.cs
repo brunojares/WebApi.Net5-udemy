@@ -11,5 +11,7 @@ namespace S6A0702.Repository
         User GetByAuthentication(string userName, string password);
         User GetByRefreshToken(string userName, string refreshToken);
         void RefreshCredentials(ref User user);
+        void RevokeToken(string userName);
+        bool VerifyIsAuthenticated(string userName);
     }
 }
