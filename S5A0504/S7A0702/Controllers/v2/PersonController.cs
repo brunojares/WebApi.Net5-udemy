@@ -118,5 +118,24 @@ namespace S5A0504.Controllers.v2
                 return this.ReturnActionResult(ex);
             }
         }
+        [HttpPatch("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PersonOutVO))]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        public IActionResult Enabled(int id, bool enabled)
+        {
+            try
+            {
+                var _result = _personBusiness
+                    .SetEnabled(id, enabled)
+                    .CreateVO<Person, PersonOutVO>()
+                ;
+                return Ok(_result);
+            }
+            catch (Exception ex)
+            {
+                return this.ReturnActionResult(ex);
+            }
+        }
     }
 }

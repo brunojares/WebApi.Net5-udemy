@@ -38,5 +38,12 @@ namespace S6A0702.Business.Implementation
             if (_personRepository.Exists(id))
                 _personRepository.DeleteById(id);
         }
+
+        public Person SetEnabled(long id, bool enabled)
+        {
+            if (!_personRepository.Exists(id))
+                throw new KeyNotFoundException($"Person {id} not found");
+            return _personRepository.SetEnabled(id, enabled);
+        }
     }
 }

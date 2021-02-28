@@ -8,6 +8,7 @@ namespace S6A0702.VO.v2
         public string LastName { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
+        public bool Enabled { get; set; }
 
         public virtual void CopyFrom(Person entity)
         {
@@ -17,6 +18,7 @@ namespace S6A0702.VO.v2
                 LastName = entity.LastName;
                 Address = entity.Address;
                 Gender = entity.Gender;
+                Enabled = entity.Enabled;
             }
         }
 
@@ -28,6 +30,7 @@ namespace S6A0702.VO.v2
                 entity.LastName = LastName;
                 entity.Address = Address;
                 entity.Gender = Gender;
+                entity.Enabled = Enabled;
             }
         }
     }

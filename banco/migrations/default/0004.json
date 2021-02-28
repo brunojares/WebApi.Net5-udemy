@@ -1,0 +1,14 @@
+{
+  "upgrade": {
+    "name": "Add Enabled filed on Person table",
+    "command": [
+      "ALTER TABLE person ADD COLUMN enabled bit(1) NOT NULL DEFAULT b'1' AFTER gender"
+    ]
+  },
+  "downgrade": {
+    "name": "Drop Enabled filed on Person table",
+    "command": [
+      "ALTER TABLE person DROP IF EXISTS enabled"
+    ]
+  }
+}

@@ -10,5 +10,6 @@ namespace S6A0702.Business
         void Create(ref Person entity);
         void Update(ref Person entity);
         void DeleteById(long id);
+        public Person SetEnabled(long id, bool enabled);
     }
 }

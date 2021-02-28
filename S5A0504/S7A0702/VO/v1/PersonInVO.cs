@@ -28,6 +28,7 @@ namespace S6A0702.VO.v1
                 entity.LastName = LastName;
                 entity.Address = Address;
                 entity.Gender = Gender;
+                entity.Enabled = true;
             }
         }
     }

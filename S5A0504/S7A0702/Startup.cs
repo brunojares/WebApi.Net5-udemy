@@ -99,8 +99,8 @@ namespace S5A0504
             services.AddSwaggerGen(c =>
             {
                 //API versions
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "S6A0702 - 1.0", Version = "v1" });
                 c.SwaggerDoc("v2", new OpenApiInfo { Title = "S6A0702 - 2.0", Version = "v2" });
+                //c.SwaggerDoc("v1", new OpenApiInfo { Title = "S6A0702 - 1.0", Version = "v1" });
                 //Selecting API versions on interface enabled
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 c.DocInclusionPredicate((_, api) => !string.IsNullOrWhiteSpace(api.GroupName));
@@ -153,7 +153,7 @@ namespace S5A0504
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v2/swagger.json", "S6A0702 v2");
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "S6A0702 v1");
+                    //c.SwaggerEndpoint("/swagger/v1/swagger.json", "S6A0702 v1");
                 });
             }
 
