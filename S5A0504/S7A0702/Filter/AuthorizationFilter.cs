@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace S6A0702.Filter
 {
+    /// <summary>
+    /// https://docs.microsoft.com/pt-br/aspnet/web-api/overview/security/authentication-filters
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class AuthorizationFilter : ActionFilterAttribute
     {
