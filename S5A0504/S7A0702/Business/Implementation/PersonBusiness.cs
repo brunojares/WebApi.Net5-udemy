@@ -20,7 +20,9 @@ namespace S6A0702.Business.Implementation
         public Person GetById(long id) =>
              _personRepository.GetById(id)
         ;
-
+        public IEnumerable<Person> GetByFilter(string filter) =>
+            _personRepository.GetByFilter(filter)
+        ;
         public void Create(ref Person entity)
         {
             _personRepository.Create(ref entity);

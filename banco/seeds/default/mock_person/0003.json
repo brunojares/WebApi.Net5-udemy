@@ -1,0 +1,7 @@
+﻿{
+  "name": "Mocking person table",
+  "script": [
+    "insert into person (first_name, last_name, address, gender, enabled) values ",
+    "('{{word:4..15}} {{word:4..15}}', '{{word:4..15}} {{word:4..15}}', '{{word:4..15}} {{word:4..15}}, {{number:1..5;0}}', 'Female', 0)"
+  ]
+}

@@ -10,5 +10,6 @@ namespace S6A0702.Business
         void Create(ref Book entity);
         void Update(ref Book entity);
         void DeleteById(long id);
+        public IEnumerable<Book> GetByFilter(string filter);
     }
 }

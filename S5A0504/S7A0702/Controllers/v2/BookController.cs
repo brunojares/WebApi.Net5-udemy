@@ -29,17 +29,14 @@ namespace S6A0702.Controllers.v2
         }
 
         [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(BookOutVO[]))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PagedCollectionVO<BookOutVO, Book>))]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
-        public ActionResult Get()
+        public ActionResult Get(string filter, int currentPage = 1, int pageSize = 10)
         {
             try
             {
-                var _result = _bookBusiness
-                    .GetAll()
-                    .Parse<Book, BookOutVO>()
-                    .ToArray()
-                ;
+                var _entities = _bookBusiness.GetByFilter(filter);
+                var _result = new PagedCollectionVO<BookOutVO, Book>(_entities, currentPage, pageSize);
                 return Ok(_result);
             }
             catch (Exception ex)

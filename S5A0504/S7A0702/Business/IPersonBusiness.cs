@@ -7,6 +7,7 @@ namespace S6A0702.Business
     {
         Person GetById(long id);
         IEnumerable<Person> GetAll();
+        public IEnumerable<Person> GetByFilter(string filter);
         void Create(ref Person entity);
         void Update(ref Person entity);
         void DeleteById(long id);

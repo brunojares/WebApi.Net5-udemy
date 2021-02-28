@@ -20,6 +20,9 @@ namespace S6A0702.Business.Implementation
         public Book GetById(long id) =>
             _bookRepository.GetById(id)
         ;
+        public IEnumerable<Book> GetByFilter(string filter) =>
+            _bookRepository.GetByFilter(filter)
+        ;
         public void Create(ref Book entity) =>
             _bookRepository.Create(ref entity)
         ;

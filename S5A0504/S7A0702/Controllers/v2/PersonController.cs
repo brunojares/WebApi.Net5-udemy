@@ -31,17 +31,14 @@ namespace S5A0504.Controllers.v2
 
         [HttpGet]
         [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PersonOutVO[]))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PagedCollectionVO<PersonOutVO, Person>))]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
-        public IActionResult Get()
+        public IActionResult Get(string filter, int currentPage = 1, int pageSize = 10)
         {
             try
             {
-                var _result = _personBusiness
-                    .GetAll()
-                    .Parse<Person, PersonOutVO>()
-                    .ToArray()
-                ;
+                var _entities = _personBusiness.GetByFilter(filter);
+                var _result = new PagedCollectionVO<PersonOutVO, Person>(_entities, currentPage, pageSize);
                 return Ok(_result);
             }
             catch (Exception ex)
