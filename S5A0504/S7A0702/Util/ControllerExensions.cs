@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using S6A0702.VO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,31 +16,13 @@ namespace S6A0702.Util
         {
             switch (exception.GetType().Name)
             {
-                case nameof(KeyNotFoundException):
-                    {
-                        return controller.NotFound(new
-                        {
-                            title = "Not found",
-                            errors = new string[] { exception.Message }
-                        });
-                    }
-                case nameof(SecurityException):
-                    {
-                        return controller.Unauthorized(new
-                        {
-                            title = "Access denied",
-                            errors = new string[] { exception.Message }
-                        });
-                    }
+                case nameof(KeyNotFoundException): return controller.NotFound(new ErrorVO("Not found", exception.Message));
+                case nameof(SecurityException): return controller.Unauthorized(new ErrorVO("Access denied", exception.Message));
                 default:
                     {
                         return controller.StatusCode(
                             (int)HttpStatusCode.InternalServerError,
-                            new
-                            {
-                                title = "Service error",
-                                errors = new string[] { exception.Message }
-                            }
+                            new ErrorVO("Service error", exception.Message)
                         );
                     }
             }

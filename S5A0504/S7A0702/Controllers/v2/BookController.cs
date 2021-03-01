@@ -30,7 +30,7 @@ namespace S6A0702.Controllers.v2
 
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PagedCollectionVO<BookOutVO, Book>))]
-        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ErrorVO))]
         public ActionResult Get(string filter, int currentPage = 1, int pageSize = 10)
         {
             try
@@ -46,8 +46,8 @@ namespace S6A0702.Controllers.v2
         }
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(BookOutVO))]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ErrorVO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ErrorVO))]
         public ActionResult Get(long id)
         {
             try
@@ -65,8 +65,8 @@ namespace S6A0702.Controllers.v2
         }
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(BookOutVO[]))]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ErrorVO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ErrorVO))]
         public ActionResult Post([FromBody] BookInVO book)
         {
             try
@@ -83,8 +83,8 @@ namespace S6A0702.Controllers.v2
         }
         [HttpPut("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(BookOutVO[]))]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ErrorVO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ErrorVO))]
         public ActionResult Put(long id, [FromBody] BookInVO book)
         {
             try
@@ -101,8 +101,8 @@ namespace S6A0702.Controllers.v2
             }
         }
         [HttpDelete("{id}")]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof(ErrorVO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ErrorVO))]
         public ActionResult Delete(long id)
         {
             try

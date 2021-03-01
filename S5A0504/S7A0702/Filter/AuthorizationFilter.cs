@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using S6A0702.Business;
+using S6A0702.VO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace S6A0702.Filter
@@ -30,27 +32,13 @@ namespace S6A0702.Filter
             }
             catch (SecurityException ex)
             {
-                context.Result = _controller.Unauthorized(new
-                {
-                    title = "Access denied",
-                    errors = new string[]
-                    {
-                        ex.Message
-                    }
-                });
+                context.Result = _controller.Unauthorized(new ErrorVO("Access denied", ex.Message));
             }
             catch (Exception ex)
             {
                 context.Result = _controller.StatusCode(
                     (int)HttpStatusCode.InternalServerError,
-                    new
-                    {
-                        title = "Service error",
-                        erros = new string[]
-                        {
-                            ex.Message
-                        }
-                    }
+                    new ErrorVO("Service error", ex.Message)
                 );
             }
         }
