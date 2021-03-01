@@ -8,7 +8,6 @@ using S6A0702.VO;
 using S6A0702.VO.v2;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 
 namespace S6A0702.Controllers.v2

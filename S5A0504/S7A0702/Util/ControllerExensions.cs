@@ -2,11 +2,9 @@
 using S6A0702.VO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Security;
-using System.Threading.Tasks;
 
 namespace S6A0702.Util
 {
@@ -26,6 +24,11 @@ namespace S6A0702.Util
                         );
                     }
             }
+        }
+        public static string ReturnApiGroupName(this ControllerBase controllerBase)
+        {
+            var _attribute = controllerBase.GetType().GetCustomAttribute<ApiExplorerSettingsAttribute>();
+            return _attribute.GroupName;
         }
     }
 }

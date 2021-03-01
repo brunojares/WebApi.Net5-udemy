@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -129,6 +131,7 @@ namespace S5A0504
             });
 
             services.AddSingleton(_tokenConfiguration);
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddTransient<ITokenGenerator, TokenGenerator>();
             services.AddScoped<AuthorizationFilter>();
@@ -140,7 +143,7 @@ namespace S5A0504
             services.AddScoped<IPersonBusiness, PersonBusiness>();
             services.AddScoped<IBookBusiness, BookBusiness>();
             services.AddScoped<ILoginBusiness, LoginBusiness>();
-
+            services.AddScoped<IFileBusiness, FileBusiness>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
