@@ -7,6 +7,7 @@ using S6A0702.Util;
 using S6A0702.VO;
 using S6A0702.VO.v2;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace S6A0702.Controllers.v2
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(FileOutVO[]))]
+        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(FileOutVO))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ErrorVO))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ErrorVO))]
@@ -38,6 +39,24 @@ namespace S6A0702.Controllers.v2
             {
                 var _apiVersion = this.ReturnApiGroupName();
                 var _result = await _fileBusiness.SaveFile(file, _apiVersion);
+                return new OkObjectResult(_result);
+            }
+            catch (Exception ex)
+            {
+                return this.ReturnActionResult(ex);
+            }
+        }
+        [HttpPost("Many")]
+        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(FileOutVO[]))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ErrorVO))]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ErrorVO))]
+        public async Task<IActionResult> Post([FromForm] List<IFormFile> files)
+        {
+            try
+            {
+                var _apiVersion = this.ReturnApiGroupName();
+                var _result = await _fileBusiness.SaveFiles(files, _apiVersion);
                 return new OkObjectResult(_result);
             }
             catch (Exception ex)
