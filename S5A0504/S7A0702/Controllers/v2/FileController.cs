@@ -9,6 +9,7 @@ using S6A0702.VO.v2;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace S6A0702.Controllers.v2
@@ -26,6 +27,25 @@ namespace S6A0702.Controllers.v2
         public FileController(IFileBusiness fileBusiness)
         {
             _fileBusiness = fileBusiness;
+        }
+
+        [HttpGet("{fileName}")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(byte[]))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ErrorVO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ErrorVO))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ErrorVO))]
+        [Produces("application/octet-stream")]
+        public ActionResult Get(string fileName)
+        {
+            try
+            {
+                var _content = _fileBusiness.GetFile(fileName);
+                return File(_content, "application/octet-stream");
+            }
+            catch (Exception ex)
+            {
+                return this.ReturnActionResult(ex);
+            }
         }
 
         [HttpPost]

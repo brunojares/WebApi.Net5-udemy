@@ -22,7 +22,11 @@ namespace S6A0702.Business.Implementation
 
         public byte[] GetFile(string fileName)
         {
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentNullException($"File name is required", (Exception)null);
             var _path = Path.Combine(_basePath, Path.GetFileName(fileName));
+            if (!File.Exists(_path))
+                throw new FileNotFoundException($"File {fileName} not found");
             return File.ReadAllBytes(_path);
         }
 
