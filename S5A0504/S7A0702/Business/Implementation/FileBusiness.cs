@@ -17,6 +17,7 @@ namespace S6A0702.Business.Implementation
         {
             _httpContextAccessor = httpContextAccessor;
             _basePath = Path.Combine(Directory.GetCurrentDirectory(), "UploadDir");
+            Directory.CreateDirectory(_basePath);
         }
 
         public byte[] GetFile(string fileName)
