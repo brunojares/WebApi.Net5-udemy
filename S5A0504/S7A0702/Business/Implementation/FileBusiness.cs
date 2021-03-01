@@ -31,7 +31,8 @@ namespace S6A0702.Business.Implementation
             var _result = new FileDetail();
             //======
             _result.DocType = Path.GetExtension(file.FileName);
-            var _baseUrl = _httpContextAccessor.HttpContext.Request.Host.Value;
+            var _request = _httpContextAccessor.HttpContext.Request;
+            var _baseUrl = $"{_request.Scheme}://{_request.Host.Value}";
             if (new string[] { ".pdf", ".jpg", ".png", ".jpeg" }.Contains(_result.DocType.Trim().ToLower()))
             {
                 var _docName = Path.GetFileName(file.FileName);
@@ -39,7 +40,7 @@ namespace S6A0702.Business.Implementation
                 if (file?.Length > 0)
                 {
                     var _destination = Path.Combine(_basePath, _docName);
-                    _result.DocUrl = Path.Combine(_baseUrl, "api", "file", apiVersion, _result.FileName);
+                    _result.DocUrl = $"{_baseUrl}/{apiVersion}/file/{_result.FileName}";
                     using (var stream = new FileStream(_destination, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
